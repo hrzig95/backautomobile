@@ -1,8 +1,8 @@
 module.exports = {
   HOST: "localhost",
   USER: "sayara",
-  PASSWORD: "",
-  DB:"locationvoiture",
+  PASSWORD: "121212Aa@24188358",
+  DB:"sayara_db",
   dialect: "mysql",
   pool: {
     max: 5,
