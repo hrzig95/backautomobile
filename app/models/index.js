@@ -26,21 +26,8 @@ db.Op = Op;
 db.sequelize = sequelize;
 
 db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
-db.role = require("./role.model.js")(sequelize, Sequelize, DataTypes);
 db.voiture = require("./voiture.model.js")(sequelize, Sequelize, DataTypes);
 
 
-db.role.belongsToMany(db.user, {
-  through: "user_roles",
-  foreignKey: "role_id",
-  otherKey: "user_id"
-});
-db.user.belongsToMany(db.role, {
-  through: "user_roles",
-  foreignKey: "user_id",
-  otherKey: "role_id"
-});
-
-db.ROLES = ["user", "admin", "agence","employe"];
 
 module.exports = db;
