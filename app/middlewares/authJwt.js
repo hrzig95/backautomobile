@@ -25,87 +25,9 @@ verifyToken = (req, res, next) => {
   });
 };
 
-isAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.lenth; i++) {
-        if (roles[i].name === "admin") {
-          next();
-          return;
-        }
-      }
-
-      res.status(403).send({
-        message: "Require Admin Role!"
-      });
-      return;
-    });
-  });
-};
-
-isAgence = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "agence") {
-          next();
-          return;
-        }
-      }
-
-      res.status(403).send({
-        message: "Require agence Role!"
-      });
-    });
-  });
-};
-
-
-isEmploye = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "employe") {
-          next();
-          return;
-        }
-      }
-
-      res.status(403).send({
-        message: "Require employe Role!"
-      });
-    });
-  });
-};
-
-isAgenceOrAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "agence") {
-          next();
-          return;
-        }
-
-        if (roles[i].name === "admin") {
-          next();
-          return;
-        }
-      }
-
-      res.status(403).send({
-        message: "Require agence or Admin Role!"
-      });
-    });
-  });
-};
 
 const authJwt = {
-  verifyToken: verifyToken,
-  isAdmin: isAdmin,
-  isAgence: isAgence,
-  isEmploye: isEmploye,
-  isAgenceOrAdmin: isAgenceOrAdmin
+  verifyToken: verifyToken
 };
 
 module.exports = authJwt;
