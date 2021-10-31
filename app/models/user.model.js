@@ -8,19 +8,11 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      username: {
-        type: DataTypes.STRING,
-        unique: true
-      },
       email: {
         type: DataTypes.STRING
       },
       password: {
         type: DataTypes.STRING
-      },
-      active: {
-        type: DataTypes.INTEGER,
-        //defaultValue:0
       }
     },
     {
