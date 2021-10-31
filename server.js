@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 // api routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-require("./app/routes/voiture.routes")(app);
+// require("./app/routes/voiture.routes")(app);
 
 // set port, listen for requests
 //const PORT = config.PORT;

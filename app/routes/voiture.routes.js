@@ -11,7 +11,7 @@ module.exports = function(app) {
     next();
   });
 
-//   app.get("/voiture", controller.allVoiture);
+   app.get("/voiture", controller.allVoiture);
 
 
   app.post(

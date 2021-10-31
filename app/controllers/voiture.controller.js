@@ -17,12 +17,12 @@ exports.addVoiture = (req, res) => {
 };
 
 
-// exports.allVoiture = (req, res) => {
-//   Voiture.findAll()
-//     .then(voitures => {
-//         res.send({ voitures: voitures });
-//     })
-//     .catch(err => {
-//       res.status(500).send({ message: err.message });
-//     });
-// };
+exports.allVoiture = (req, res) => {
+  Voiture.findAll()
+    .then(voitures => {
+        res.send({ voitures: voitures });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
