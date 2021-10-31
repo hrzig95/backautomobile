@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "localhost",
+  HOST: "https://sayara.tn:2083/",
   USER: "root",
   PASSWORD: "",
-  DB:"locationvoiture",
+  DB:"sayara_db",
   dialect: "mysql",
   pool: {
     max: 5,

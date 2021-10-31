@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-// const config = require("./app/config/config.js");
+const config = require("./app/config/config.js");
 
 const app = express();
 
@@ -18,12 +18,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // database
-// const db = require("./app/models");
-// const Role = db.role;
+const db = require("./app/models");
+const Role = db.role;
 
-// db.sequelize.sync().then(() => {
-//  //initial(); // Just use it in development, at the first time execution!. Delete it in production
-// });
+db.sequelize.sync().then(() => {
+ initial(); // Just use it in development, at the first time execution!. Delete it in production
+});
 
 
 
@@ -35,16 +35,18 @@ app.get("/", (req, res) => {
 // api routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/voiture.routes")(app);
 
 // set port, listen for requests
 //const PORT = config.PORT;
-const PORT = 3000;
+const PORT = 3031;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
 // Just use it in development, at the first time execution!. Delete it in production
-/*
+
 function initial() {
   Role.create({
     id: 1,
@@ -68,5 +70,5 @@ function initial() {
   
   
 }
-*/
+
 
