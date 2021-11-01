@@ -10,7 +10,7 @@ const Op = db.Op;
 
 exports.signup = (req, res) => {
   // Save user to database
-  user={
+  let user={
     email:req.body.email,
     password:bcrypt.hashSync(req.body.password, 8),
     type:req.body.type
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
     user.companyPhone=req.body.companyPhone;
     user.gender=req.body.gender;
     user.firstName=req.body.firstName;
-    user.lastName=req.body.firstName;
+    user.lastName=req.body.lastName;
   }
   User.create(user)
     .then(user => {
