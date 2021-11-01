@@ -15,10 +15,11 @@ exports.signup = (req, res) => {
     password:bcrypt.hashSync(req.body.password, 8),
     type:req.body.type
   };
-  if(req.body.type!=='pro')
+  if(req.body.type==='part')
   {
     user.username=req.body.username;
-  }else{
+  }
+  if(req.body.type==='pro'){
     user.companyName=req.body.companyName;
     user.companyCategory=req.body.companyCategory;
     user.companyAddress=req.body.companyAddress;
