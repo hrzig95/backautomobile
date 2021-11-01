@@ -2,6 +2,7 @@ const config = require("../config/config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
+const { user } = require("../models");
 const User = db.user;
 const Role = db.role;
 const Agence = db.agence;
@@ -9,10 +10,25 @@ const Op = db.Op;
 
 exports.signup = (req, res) => {
   // Save user to database
-  User.create({
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
-  })
+  user={
+    email:req.body.email,
+    password:bcrypt.hashSync(req.body.password, 8),
+    type:req.body.type
+  };
+  if(req.body.type!=='pro')
+  {
+    user.username=req.body.username;
+  }else{
+    user.companyName=req.body.companyName;
+    user.companyCategory=req.body.companyCategory;
+    user.companyAddress=req.body.companyAddress;
+    user.companyZipCode=req.body.companyZipCode;
+    user.companyPhone=req.body.companyPhone;
+    user.gender=req.body.gender;
+    user.firstName=req.body.firstName;
+    user.lastName=req.body.firstName;
+  }
+  User.create(user)
     .then(user => {
     
           res.send({ message: "User was registered successfully!" });
