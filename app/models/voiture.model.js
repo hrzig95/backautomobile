@@ -8,8 +8,74 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
           defaultValue: Sequelize.UUIDV4,
           primaryKey: true
         },
-        type: {
+        title: {
           type: DataTypes.STRING,
+        },
+        availablity: {
+          type: DataTypes.STRING,
+        },
+        phone: {
+          type: DataTypes.STRING,
+        },
+        city: {
+          type: DataTypes.STRING,
+        },
+        brand: {
+          type: DataTypes.STRING,
+        },
+        model: {
+          type: DataTypes.STRING,
+        },
+        price: {
+          type: DataTypes.DOUBLE,
+        },
+        color: {
+          type: DataTypes.STRING,
+        },
+        carrosserie: {
+          type: DataTypes.STRING,
+        },
+        guarantee: {
+          type: DataTypes.STRING,
+        },
+        month: {
+          type: DataTypes.STRING,
+        },
+        year: {
+          type: DataTypes.INTEGER,
+        },
+        category: {
+          type: DataTypes.STRING,
+        },
+        address: {
+          type: DataTypes.STRING,
+        },
+        motorization: {
+          type: DataTypes.STRING,
+        },
+        mileage: {
+          type: DataTypes.STRING,
+        },
+        energy: {
+          type: DataTypes.STRING,
+        },
+        transmission: {
+          type: DataTypes.STRING,
+        },
+        powerFiscal: {
+          type: DataTypes.STRING,
+        },
+        gearbox: {
+          type: DataTypes.STRING,
+        },
+        description: {
+          type: DataTypes.STRING,
+        },
+        seatingCapacity: {
+          type: DataTypes.STRING,
+        },
+        numberDoors: {
+          type: DataTypes.INTEGER,
         }
       },
       {

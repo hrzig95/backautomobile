@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("./app/config/config.js");
+const bcrypt = require("bcryptjs");
+const db = require("./app/models");
+const User = db.user;
 
 const app = express();
 
@@ -21,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 
 db.sequelize.sync().then(() => {
- //initial(); // Just use it in development, at the first time execution!. Delete it in production
+ initial(); // Just use it in development, at the first time execution!. Delete it in production
 });
 
 
@@ -35,6 +38,7 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/voiture.routes")(app);
+require("./app/routes/blog.routes")(app);
 
 // set port, listen for requests
 //const PORT = config.PORT;
@@ -46,28 +50,15 @@ app.listen(PORT, () => {
 
 // Just use it in development, at the first time execution!. Delete it in production
 
-// function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user"
-//   });
-
-//   Role.create({
-//     id: 2,
-//     name: "agence"
-//   });
-
-//   Role.create({
-//     id: 3,
-//     name: "admin"
-//   });
-
-//    Role.create({
-//     id: 4,
-//     name: "employe"
-//   });
+function initial() {
+  
+   User.create({
+    role: "admin",
+    email:"hrzig95@gmail.com",
+    password:bcrypt.hashSync("Haythem12.", 8)
+  });
   
   
-// }
+}
 
 

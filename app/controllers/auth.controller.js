@@ -13,7 +13,8 @@ exports.signup = (req, res) => {
   let user={
     email:req.body.email,
     password:bcrypt.hashSync(req.body.password, 8),
-    type:req.body.type
+    type:req.body.type,
+    role:"user"
   };
   if(req.body.type==='part')
   {
@@ -58,7 +59,6 @@ exports.signin = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          accessToken: null,
           message: "Invalid Password!"
         });
       }
@@ -68,6 +68,7 @@ exports.signin = (req, res) => {
         res.status(200).send({
           id: user.id,
           email: user.email,
+          type:user.type,
           accessToken: token
         });
     })

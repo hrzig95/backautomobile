@@ -1,5 +1,5 @@
 const { authJwt } = require("../middlewares");
-const controller = require("../controllers/voiture.controller");
+const controller = require("../controllers/blog.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -11,15 +11,22 @@ module.exports = function(app) {
     next();
   });
 
-   app.get("/voiture", controller.allVoiture);
+   app.get("/blog", controller.allBlog);
 
 
   app.post(
-    "/voiture",controller.addVoiture
+    "/blog",controller.addBlog
   );
 
   app.delete(
-    "/voiture/:id",controller.deleteVoiture
+    "/blog/:id",controller.deleteBlog
   );
 
+  app.post(
+    "/validateBlog",controller.validateBlog
+  );
+
+  app.post(
+    "/rejectBlog",controller.rejectBlog
+  );
 };
