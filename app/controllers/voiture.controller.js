@@ -1,5 +1,5 @@
 const config = require("../config/config");
-const { pictureVoiture } = require("../models");
+const { pictureVoiture, insideEquipmentVoiture, outsideEquipmentVoiture, securityEquipmentVoiture } = require("../models");
 const db = require("../models");
 const Voiture = db.voiture;
 
@@ -33,23 +33,56 @@ exports.addVoiture = (req, res) => {
   }
   Voiture.create(voiture)
     .then(voiture => {
-      let voituresPicture=[];
       let idVoiture= voiture.id;
-      let pictures= typeof req.body.link === "string" ? Array(req.body.pictures) :req.body.pictures;
-  for (let i=0;i<pictures.length;i++) 
+      let voituresPicture=[];
+      let outsides=[];
+      let insides=[];
+      let securities=[];
+      let pictures= typeof req.body.pictures === "string" ? Array(req.body.pictures) :req.body.pictures;
+      let insidesEquipment= typeof req.body.insideEquipment === "string" ? Array(req.body.insideEquipment) :req.body.insideEquipment;
+      let outsidesEquipment= typeof req.body.outsideEquipment === "string" ? Array(req.body.outsideEquipment) :req.body.outsideEquipment;
+      let securityEquipment= typeof req.body.securityEquipment === "string" ? Array(req.body.securityEquipment) :req.body.securityEquipment;
+
+      for (let i=0;i<pictures.length;i++) 
   {
     picture={
-      voiture: idVoiture,
+      voitureId: idVoiture,
       picture: pictures[i]
     }
     voituresPicture.push(picture)
   }
-  pictureVoiture.bulkCreate(voituresPicture).then(()=>{
-    res.send({ message: "voiture was registered successfully!" });
-  }).catch(err=>{
-      res.status(500).send({ message: err.message });
-  });
-            res.send({ message: "voiture was registered successfully!" });
+
+  for (let i=0;i<insidesEquipment.length;i++) 
+  {
+    insideEquipement={
+      voitureId: idVoiture,
+      equipement: insidesEquipment[i]
+    }
+    insides.push(insideEquipement)
+  }
+
+  for (let i=0;i<outsidesEquipment.length;i++) 
+  {
+    outsideEquipement={
+      voitureId: idVoiture,
+      equipement: outsidesEquipment[i]
+    }
+    outsides.push(outsideEquipement)
+  }
+
+  for (let i=0;i<securityEquipment.length;i++) 
+  {
+    security={
+      voitureId: idVoiture,
+      equipement: securityEquipment[i]
+    }
+    securities.push(security)
+  }
+  pictureVoiture.bulkCreate(voituresPicture);
+  insideEquipmentVoiture.bulkCreate(insides);
+  outsideEquipmentVoiture.bulkCreate(outsides);
+  securityEquipmentVoiture.bulkCreate(securities);
+  res.send({ message: "voiture was registered successfully!" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
