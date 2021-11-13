@@ -28,6 +28,17 @@ exports.allPublicite = (req, res) => {
     });
 };
 
+exports.getOnePublicite = (req, res) => {
+    const id = req.params.id;
+    Publicite.findByPk(id)
+      .then(publicite => {
+          res.send({ publicite: publicite });
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      });
+  };
+
 exports.deletePublicite = (req, res) => {
     Publicite.destroy( {where: {
     id: req.params.id}})

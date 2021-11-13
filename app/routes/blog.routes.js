@@ -13,6 +13,7 @@ module.exports = function(app) {
 
    app.get("/blog", controller.allBlog);
 
+   app.get("/blog/:id", controller.getOneBlog);
 
   app.post(
     "/blog",controller.addBlog

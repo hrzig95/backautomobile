@@ -108,6 +108,28 @@ exports.allVoiture = (req, res) => {
     });
 };
 
+exports.getOneVoiture = (req, res) => {
+  const id = req.params.id;
+  Voiture.findOne({
+    where: {
+      id: id
+    },
+    include: [
+      pictureVoiture,
+      securityEquipmentVoiture,
+      insideEquipmentVoiture,
+      outsideEquipmentVoiture
+  ]
+  })
+    .then(voiture => {
+        res.send({ voiture: voiture });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    })
+};
+
+
 exports.deleteVoiture = (req, res) => {
   insideEquipmentVoiture.destroy({where:{voitureId:req.params.id}});
   outsideEquipmentVoiture.destroy({where:{voitureId:req.params.id}});

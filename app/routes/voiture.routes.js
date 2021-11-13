@@ -12,6 +12,7 @@ module.exports = function(app) {
   });
 
    app.get("/voiture", controller.allVoiture);
+   app.get("/voiture/:id", controller.getOneVoiture);
 
 
   app.post(

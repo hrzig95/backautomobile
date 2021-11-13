@@ -12,6 +12,7 @@ module.exports = function(app) {
   });
 
    app.get("/publicite", controller.allPublicite);
+   app.get("/publicite/:id", controller.getOnePublicite);
 
 
   app.post(
@@ -32,4 +33,6 @@ module.exports = function(app) {
 
   app.get("/validatedPublicite", controller.allValidatedPublicite);
 
+
+  
 };

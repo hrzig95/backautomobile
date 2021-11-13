@@ -29,6 +29,17 @@ exports.allBlog = (req, res) => {
     });
 };
 
+exports.getOneBlog = (req, res) => {
+  const id = req.params.id;
+  Blog.findByPk(id)
+    .then(blog => {
+        res.send({ blog: blog });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
 exports.deleteBlog = (req, res) => {
   Blog.destroy( {where: {
     id: req.params.id}})
