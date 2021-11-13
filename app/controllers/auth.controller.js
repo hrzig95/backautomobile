@@ -64,11 +64,13 @@ exports.signin = (req, res) => {
       }
       let token = jwt.sign({ id: user.id }, config.auth.secret, {
         expiresIn: 86400 // 24 hours
-      });      
+      });  
+      let type=user.type ? user.type : user.role;    
         res.status(200).send({
           id: user.id,
           email: user.email,
-          type:user.type,
+          type:type,
+          role:user.role,
           accessToken: token
         });
     })
