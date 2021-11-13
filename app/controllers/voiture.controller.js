@@ -56,7 +56,7 @@ exports.addVoiture = (req, res) => {
   {
     insideEquipement={
       voitureId: idVoiture,
-      equipement: insidesEquipment[i]
+      equipment: insidesEquipment[i]
     }
     insides.push(insideEquipement)
   }
@@ -65,7 +65,7 @@ exports.addVoiture = (req, res) => {
   {
     outsideEquipement={
       voitureId: idVoiture,
-      equipement: outsidesEquipment[i]
+      equipment: outsidesEquipment[i]
     }
     outsides.push(outsideEquipement)
   }
@@ -74,7 +74,7 @@ exports.addVoiture = (req, res) => {
   {
     security={
       voitureId: idVoiture,
-      equipement: securityEquipment[i]
+      equipment: securityEquipment[i]
     }
     securities.push(security)
   }
