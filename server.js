@@ -23,7 +23,7 @@ const db = require("./app/models");
 const User = db.user;
 
 db.sequelize.sync().then(() => {
- initial(); // Just use it in development, at the first time execution!. Delete it in production
+ //initial(); // Just use it in development, at the first time execution!. Delete it in production
 });
 
 
