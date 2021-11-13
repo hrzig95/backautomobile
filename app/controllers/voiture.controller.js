@@ -92,12 +92,15 @@ exports.addVoiture = (req, res) => {
 
 exports.allVoiture = (req, res) => {
   let arrayVoitures=[];
-  Voiture.findAll()
+  Voiture.findAll({
+    include: [
+        pictureVoiture,
+        securityEquipmentVoiture,
+        insideEquipmentVoiture,
+        outsideEquipmentVoiture
+    ]
+})
     .then(async(voitures) => {
-
-      for(let i=0;i<voitures.length;i++){
-        voitures[i].pictures=await pictureVoiture.findAll();
-      }
         res.send({ voitures: voitures });
     })
     .catch(err => {

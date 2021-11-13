@@ -28,6 +28,7 @@ db.sequelize = sequelize;
 db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
 db.voiture = require("./voiture.model.js")(sequelize, Sequelize, DataTypes);
 db.blog = require("./blog.model.js")(sequelize, Sequelize, DataTypes);
+db.publicite = require("./publicite.model.js")(sequelize, Sequelize, DataTypes);
 db.pictureVoiture = require("./pictureVoiture.model.js")(sequelize, Sequelize, DataTypes);
 db.insideEquipmentVoiture = require("./insideEquipmentVoiture.model.js")(sequelize, Sequelize, DataTypes);
 db.outsideEquipmentVoiture = require("./outsideEquipmentVoiture.model.js")(sequelize, Sequelize, DataTypes);

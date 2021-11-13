@@ -7,7 +7,7 @@ exports.addBlog = (req, res) => {
   // Save user to database
   Blog.create({
     titre: req.body.titre,
-    description:req.body.desctiption,
+    description:req.body.description,
     validate:'pending'
   })
     .then(blog => {
@@ -43,7 +43,7 @@ exports.deleteBlog = (req, res) => {
 exports.validateBlog = (req, res) => {
       Blog.update(
         { validate: 'validate' },
-        { where: { _id: req.body.id } }
+        { where: { id: req.body.id } }
       )
         .then(result =>{
             res.send({ message: "Blog was validated successfully!" });
@@ -60,7 +60,7 @@ exports.validateBlog = (req, res) => {
   exports.rejectBlog = (req, res) => {
     Blog.update(
       { validate: 'reject' },
-      { where: { _id: req.body.id } }
+      { where: { id: req.body.id } }
     )
       .then(result =>{
           res.send({ message: "Blog was rejected successfully!" });

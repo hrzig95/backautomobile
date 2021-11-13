@@ -38,6 +38,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/voiture.routes")(app);
 require("./app/routes/blog.routes")(app);
+require("./app/routes/publicite.routes")(app);
 
 // set port, listen for requests
 //const PORT = config.PORT;
