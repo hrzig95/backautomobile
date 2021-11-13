@@ -101,9 +101,14 @@ exports.allVoiture = (req, res) => {
 };
 
 exports.deleteVoiture = (req, res) => {
+
   Voiture.destroy( {where: {
     id: req.params.id}})
     .then(voitures => {
+      insideEquipmentVoiture.destroy({where:{voitureId:req.params.id}});
+      outsideEquipmentVoiture.destroy({where:{voitureId:req.params.id}});
+      pictureVoiture.destroy({where:{voitureId:req.params.id}});
+      securityEquipmentVoiture.destroy({where:{voitureId:req.params.id}});
         res.send({ message: "voiture was deleted successfully!" });
     })
     .catch(err => {
