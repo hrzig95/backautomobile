@@ -91,8 +91,13 @@ exports.addVoiture = (req, res) => {
 
 
 exports.allVoiture = (req, res) => {
+  let arrayVoitures=[];
   Voiture.findAll()
     .then(voitures => {
+
+      for(let i=0;i<voitures.length;i++){
+        voitures[i].pictures=pictureVoiture.findAll();
+      }
         res.send({ voitures: voitures });
     })
     .catch(err => {
