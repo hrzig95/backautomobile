@@ -93,10 +93,10 @@ exports.addVoiture = (req, res) => {
 exports.allVoiture = (req, res) => {
   let arrayVoitures=[];
   Voiture.findAll()
-    .then(voitures => {
+    .then(async(voitures) => {
 
       for(let i=0;i<voitures.length;i++){
-        voitures[i].pictures=pictureVoiture.findAll();
+        voitures[i].pictures=await pictureVoiture.findAll();
       }
         res.send({ voitures: voitures });
     })
