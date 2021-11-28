@@ -23,4 +23,8 @@ module.exports = function(app) {
     "/voiture/:id",controller.deleteVoiture
   );
 
+  app.post(
+    "/updateVoiture",controller.updateVoiture
+  );
+
 };
