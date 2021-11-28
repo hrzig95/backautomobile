@@ -19,4 +19,6 @@ module.exports = function(app) {
   );
 
   app.post("/signin", controller.signin);
+
+  app.get("/allUsers", controller.allUsers);
 };
