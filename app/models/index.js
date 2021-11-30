@@ -38,6 +38,13 @@ db.pictureVoiture.belongsTo(db.voiture);
 db.insideEquipmentVoiture.belongsTo(db.voiture);
 db.outsideEquipmentVoiture.belongsTo(db.voiture);
 db.securityEquipmentVoiture.belongsTo(db.voiture);
+db.voiture.belongsTo(db.user);
+
+
+db.user.hasMany(db.voiture,{
+  onDelete:"cascade",
+  allowNull: false,
+});
 
 db.voiture.hasMany(db.pictureVoiture,{
   onDelete:"cascade",

@@ -1,11 +1,14 @@
 const config = require("../config/config");
 const { pictureVoiture, insideEquipmentVoiture, outsideEquipmentVoiture, securityEquipmentVoiture } = require("../models");
 const db = require("../models");
-const Voiture = db.voiture;
+const { authJwt } = require("../middlewares");
 
+const Voiture = db.voiture;
 
 exports.addVoiture = (req, res) => {
   // Save user to database
+  authJwt.getIdByToken(req);
+  let idUser=req.userId;
   let voiture={
     title:req.body.title,
     availablity: req.body.availablity,
@@ -29,7 +32,8 @@ exports.addVoiture = (req, res) => {
     gearbox: req.body.gearbox,
     description: req.body.description,
     seatingCapacity: req.body.seatingCapacity,
-    numberDoors:req.body.numberDoors 
+    numberDoors:req.body.numberDoors,
+    userId:idUser 
   }
   Voiture.create(voiture)
     .then(voiture => {

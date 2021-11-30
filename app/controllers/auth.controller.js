@@ -79,7 +79,7 @@ exports.signin = (req, res) => {
     });
 };
 exports.allUsers = (req, res) => {
-  User.find()
+  User.findAll()
     .then(users => {
         res.status(200).send({users});
     })
