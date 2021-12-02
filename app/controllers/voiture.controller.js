@@ -4,10 +4,11 @@ const db = require("../models");
 const { authJwt } = require("../middlewares");
 
 const Voiture = db.voiture;
+const User = db.user;
 
 exports.addVoiture = (req, res) => {
   // Save user to database
-  authJwt.getIdByToken(req);
+  authJwt.getIdByToken(req,res);
   let idUser=req.userId;
   let voiture={
     title:req.body.title,
@@ -95,6 +96,8 @@ exports.addVoiture = (req, res) => {
 
 exports.updateVoiture = (req, res) => {
   // Save user to database
+  authJwt.getIdByToken(req,res);
+  let idUser=req.userId;
   let idVoiture=req.body.id;
   insideEquipmentVoiture.destroy({where:{voitureId:idVoiture}});
   outsideEquipmentVoiture.destroy({where:{voitureId:idVoiture}});
@@ -124,7 +127,8 @@ exports.updateVoiture = (req, res) => {
     gearbox: req.body.gearbox,
     description: req.body.description,
     seatingCapacity: req.body.seatingCapacity,
-    numberDoors:req.body.numberDoors 
+    numberDoors:req.body.numberDoors,
+    userId:idUser 
   }
   Voiture.update(voiture, { where: { id: idVoiture }})
     .then(voiture => {
@@ -194,6 +198,14 @@ exports.allVoiture = (req, res) => {
     ]
 })
     .then(async(voitures) => {
+      for(let i=0;i<=voitures.length;i++){
+        let user=await User.findOne(
+          {where:{
+            id:voitures[i].dataValues.userId
+          },attributes: ['email', 'type','username']});
+          voiture[i].dataValues.user=user 
+      }
+      
         res.send({ voitures: voitures });
     })
     .catch(err => {
@@ -214,7 +226,12 @@ exports.getOneVoiture = (req, res) => {
       outsideEquipmentVoiture
   ]
   })
-    .then(voiture => {
+    .then(async(voiture) => {
+      let user=await User.findOne(
+      {where:{
+        id:voiture.dataValues.userId
+      },attributes: ['email', 'type','username']});
+      voiture.dataValues.user=user 
         res.send({ voiture: voiture });
     })
     .catch(err => {
