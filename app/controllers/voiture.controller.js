@@ -198,12 +198,12 @@ exports.allVoiture = (req, res) => {
     ]
 })
     .then(async(voitures) => {
-      for(let i=0;i<=voitures.length;i++){
+      for(let i=0;i<voitures.length;i++){
         let user=await User.findOne(
           {where:{
             id:voitures[i].dataValues.userId
           },attributes: ['email', 'type','username']});
-          voiture[i].dataValues.user=user 
+          voitures[i].dataValues.user=user 
       }
       
         res.send({ voitures: voitures });
