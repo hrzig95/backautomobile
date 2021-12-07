@@ -30,4 +30,7 @@ module.exports = function(app) {
   app.post(
     "/rejectBlog",controller.rejectBlog
   );
+  app.put(
+    "/updateBlog",controller.updateBlog
+  );
 };

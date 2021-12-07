@@ -1,6 +1,7 @@
 const config = require("../config/config");
 const db = require("../models");
 const Blog = db.blog;
+const { authJwt } = require("../middlewares");
 
 
 exports.addBlog = (req, res) => {
@@ -85,4 +86,17 @@ exports.validateBlog = (req, res) => {
   )
 
          
+};
+
+exports.updateBlog = (req, res) => {
+  // Save user to database
+  //authJwt.getIdByToken(req,res);
+  let blog={id:req.body.id,titre:req.body.titre,description:req.body.description};
+  Blog.update(blog, { where: { id: req.body.id }})
+    .then(blog => {
+    res.send({ message: "blog was updated successfully!" });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
 };

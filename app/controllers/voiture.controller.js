@@ -132,7 +132,7 @@ exports.updateVoiture = (req, res) => {
   }
   Voiture.update(voiture, { where: { id: idVoiture }})
     .then(voiture => {
-      let idVoiture= voiture.id;
+     // let idVoiture= voiture.id;
       let voituresPicture=[];
       let outsides=[];
       let insides=[];
