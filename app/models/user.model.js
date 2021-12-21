@@ -46,6 +46,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       },
       lastName: {
         type: DataTypes.STRING
+      },
+      status: {
+        type: DataTypes.STRING
       }
     },
     {

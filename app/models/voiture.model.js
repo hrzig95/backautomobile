@@ -76,6 +76,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         },
         numberDoors: {
           type: DataTypes.INTEGER,
+        },
+        status: {
+          type: DataTypes.STRING,
         }
       },
       {

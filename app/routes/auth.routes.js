@@ -21,4 +21,13 @@ module.exports = function(app) {
   app.post("/signin", controller.signin);
 
   app.get("/allUsers", controller.allUsers);
+
+  app.get("/getuserDetails", controller.getuserDetails);
+
+  app.post("/updateInfo", controller.updateInfo);
+
+  app.post("/updatePassword", controller.updatePassword);
+
+  app.get("/blockUser/:id", controller.blockUser);
+
 };

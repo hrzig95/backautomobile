@@ -26,4 +26,12 @@ module.exports = function(app) {
   app.post(
     "/updateVoiture",controller.updateVoiture
   );
+
+  app.post(
+    "/getUserCars",controller.getUserCars
+  );
+
+  app.post(
+    "/carStatus",controller.carStatus
+  );
 };

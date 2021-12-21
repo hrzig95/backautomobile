@@ -34,6 +34,7 @@ exports.addVoiture = (req, res) => {
     description: req.body.description,
     seatingCapacity: req.body.seatingCapacity,
     numberDoors:req.body.numberDoors,
+    status:'pending',
     userId:idUser 
   }
   Voiture.create(voiture)
@@ -249,6 +250,51 @@ exports.deleteVoiture = (req, res) => {
     id: req.params.id}})
     .then(voitures => {
         res.send({ message: "voiture was deleted successfully!" });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.getUserCars = (req, res) => {
+  let arrayVoitures=[];
+  authJwt.getIdByToken(req,res);
+  let idUser=req.userId;
+  Voiture.findAll({
+    where: {
+      userId: idUser
+    },
+    include: [
+      pictureVoiture,
+      securityEquipmentVoiture,
+      insideEquipmentVoiture,
+      outsideEquipmentVoiture
+  ]
+  })
+    .then(async(voitures) => {
+      for(let i=0;i<voitures.length;i++){
+        let user=await User.findOne(
+          {where:{
+            id:voitures[i].dataValues.userId
+          },attributes: ['email', 'type','username']});
+          voitures[i].dataValues.user=user 
+      }
+      
+        res.send({ voitures: voitures });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+
+exports.carStatus = (req, res) => {
+  let status=req.body.status;
+  let idVoiture=req.body.id;
+  let voiture={status:status}
+  Voiture.update(voiture, { where: { id: idVoiture }})
+    .then(voiture => {
+  res.send({ message: "car status was updated successfully!" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });

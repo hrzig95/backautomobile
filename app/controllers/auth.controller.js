@@ -14,6 +14,7 @@ exports.signup = (req, res) => {
     email:req.body.email,
     password:bcrypt.hashSync(req.body.password, 8),
     type:req.body.type,
+    status:'active',
     role:"user"
   };
   if(req.body.type==='part')
@@ -82,6 +83,89 @@ exports.allUsers = (req, res) => {
   User.findAll()
     .then(users => {
         res.status(200).send({users});
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.getuserDetails = (req, res) => {
+  authJwt.getIdByToken(req,res);
+  let idUser=req.userId;
+  User.findOne({
+    where: {
+      id: idUser
+    }
+  })
+    .then(user => {
+      res.status(200).send({user});
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.updateInfo = (req, res) => {
+  authJwt.getIdByToken(req,res);
+  let idUser=req.userId;
+  let user={firstName:req.body.firstName,
+    lastName:req.body.lastName,
+    companyAddress:req.body.companyAddress,
+    companyPhone:req.body.companyPhone
+  }
+  User.update(user, { where: { id: idUser }})
+    .then(user => {
+      res.status(200).send({ message: "user was updated successfully!" });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+
+exports.updatePassword = (req, res) => {
+  authJwt.getIdByToken(req,res);
+  let idUser=req.userId;
+  User.findOne({
+    where: {
+      id: idUser
+    }
+  })
+    .then(user => {
+      let passwordIsValid = bcrypt.compareSync(
+        req.body.oldPassword,
+        user.password
+      );
+
+      if (!passwordIsValid) {
+        return res.status(401).send({
+          message: "Invalid Password!"
+        });
+      }else {
+        let user={password:req.body.NewPassword}
+        User.update(user, { where: { id: idUser }})
+          .then(newUser => {
+            res.status(200).send({ message: "password was updated successfully!" });
+          })
+          .catch(err => {
+            res.status(500).send({ message: err.message });
+          });
+      }
+     
+     
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+
+exports.blockUser = (req, res) => {
+  let idUser=req.params.id;
+  let user={status:"inactive"}
+  User.update(user, { where: { id: idUser }})
+    .then(newUser => {
+      res.status(200).send({ message: "user was blocked successfully!" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
