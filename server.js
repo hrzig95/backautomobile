@@ -56,6 +56,7 @@ function initial() {
    User.create({
     role: "admin",
     email:"hrzig95@gmail.com",
+    status:"active",
     password:bcrypt.hashSync("Haythem12.", 8)
   });
   
