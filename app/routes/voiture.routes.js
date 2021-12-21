@@ -27,7 +27,7 @@ module.exports = function(app) {
     "/updateVoiture",controller.updateVoiture
   );
 
-  app.post(
+  app.get(
     "/getUserCars",controller.getUserCars
   );
 

@@ -7,6 +7,7 @@ const User = db.user;
 const Role = db.role;
 const Agence = db.agence;
 const Op = db.Op;
+const { authJwt } = require("../middlewares");
 
 exports.signup = (req, res) => {
   // Save user to database
@@ -80,7 +81,7 @@ exports.signin = (req, res) => {
     });
 };
 exports.allUsers = (req, res) => {
-  User.findAll()
+  User.findAll({attributes: {exclude: ['password']}})
     .then(users => {
         res.status(200).send({users});
     })
@@ -95,7 +96,8 @@ exports.getuserDetails = (req, res) => {
   User.findOne({
     where: {
       id: idUser
-    }
+    },
+    attributes: {exclude: ['password']}
   })
     .then(user => {
       res.status(200).send({user});

@@ -59,7 +59,6 @@ function initial() {
     password:bcrypt.hashSync("Haythem12.", 8)
   });
   
-  
 }
 
 
