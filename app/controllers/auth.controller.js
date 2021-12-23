@@ -130,7 +130,6 @@ exports.updatePassword = (req, res) => {
   authJwt.getIdByToken(req,res);
   let idUser=req.userId;
   let NewPassword=bcrypt.hashSync(req.body.newPassword, 8);
-  console.log(NewPassword);
   User.findOne({
     where: {
       id: idUser
@@ -148,7 +147,6 @@ exports.updatePassword = (req, res) => {
         });
       }else {
         let user={password:NewPassword}
-        console.log(user);
         User.update(user, { where: { id: idUser }})
           .then(newUser => {
             res.status(200).send({ message: "password was updated successfully!" });
