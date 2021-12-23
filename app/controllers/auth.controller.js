@@ -145,7 +145,7 @@ exports.updatePassword = (req, res) => {
           message: "Invalid Password!"
         });
       }else {
-        let password=bcrypt.hashSync(req.body.NewPassword, 8);
+        let password= await req.body.NewPassword;
         let user={password:password}
         console.log(user);
         User.update(user, { where: { id: idUser }})
