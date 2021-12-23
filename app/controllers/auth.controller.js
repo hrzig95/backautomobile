@@ -129,6 +129,8 @@ exports.updateInfo = (req, res) => {
 exports.updatePassword = (req, res) => {
   authJwt.getIdByToken(req,res);
   let idUser=req.userId;
+  let oldPassword=await req.body.oldPassword;
+  let NewPassword=await req.body.NewPassword;
   User.findOne({
     where: {
       id: idUser
@@ -136,7 +138,7 @@ exports.updatePassword = (req, res) => {
   })
     .then(async(user) => {
       let passwordIsValid = bcrypt.compareSync(
-        req.body.oldPassword,
+        oldPassword,
         user.password
       );
 
@@ -145,8 +147,7 @@ exports.updatePassword = (req, res) => {
           message: "Invalid Password!"
         });
       }else {
-        let password= await req.body.NewPassword;
-        let user={password:bcrypt.hashSync(password, 8)}
+        let user={password:bcrypt.hashSync(NewPassword, 8)}
         console.log(user);
         User.update(user, { where: { id: idUser }})
           .then(newUser => {
