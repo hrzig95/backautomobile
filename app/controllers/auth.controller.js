@@ -134,7 +134,7 @@ exports.updatePassword = (req, res) => {
       id: idUser
     }
   })
-    .then(user => {
+    .then(async(user) => {
       let passwordIsValid = bcrypt.compareSync(
         req.body.oldPassword,
         user.password
