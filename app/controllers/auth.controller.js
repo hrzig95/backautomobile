@@ -126,7 +126,7 @@ exports.updateInfo = (req, res) => {
 };
 
 
-exports.updatePassword = (req, res) => {
+exports.updatePassword = async (req, res) => {
   authJwt.getIdByToken(req,res);
   let idUser=req.userId;
   let oldPassword=await req.body.oldPassword;
