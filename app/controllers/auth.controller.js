@@ -129,7 +129,7 @@ exports.updateInfo = (req, res) => {
 exports.updatePassword = (req, res) => {
   authJwt.getIdByToken(req,res);
   let idUser=req.userId;
-  let NewPassword=bcrypt.hashSync(req.body.NewPassword, 8);
+  let NewPassword=bcrypt.hashSync(req.body.newPassword, 8);
   console.log(NewPassword);
   User.findOne({
     where: {
