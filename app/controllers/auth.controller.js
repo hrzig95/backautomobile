@@ -73,7 +73,8 @@ exports.signin = (req, res) => {
           email: user.email,
           type:type,
           role:user.role,
-          accessToken: token
+          accessToken: token,
+          expiresIn:86400
         });
     })
     .catch(err => {
@@ -144,7 +145,7 @@ exports.updatePassword = (req, res) => {
           message: "Invalid Password!"
         });
       }else {
-        let user={password:req.body.NewPassword}
+        let user={password:bcrypt.hashSync(req.body.NewPassword, 8)}
         User.update(user, { where: { id: idUser }})
           .then(newUser => {
             res.status(200).send({ message: "password was updated successfully!" });
