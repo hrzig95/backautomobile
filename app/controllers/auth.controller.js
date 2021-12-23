@@ -146,7 +146,7 @@ exports.updatePassword = (req, res) => {
         });
       }else {
         let password= await req.body.NewPassword;
-        let user={password:password}
+        let user={password:bcrypt.hashSync(password, 8)}
         console.log(user);
         User.update(user, { where: { id: idUser }})
           .then(newUser => {
