@@ -1,32 +1,33 @@
 module.exports = (sequelize, Sequelize, DataTypes) => {
     const Blog = sequelize.define(
-      "blog", // Model name
-      {
-        // Attributes
-        id: {
-          type: DataTypes.UUID,
-          defaultValue: Sequelize.UUIDV4,
-          primaryKey: true
-        },
-        titre: {
-          type: DataTypes.STRING,
-        },
-        description: {
-          type: DataTypes.STRING,
-        } ,
-        validate: {
-          type: DataTypes.STRING,
+        "blog", // Model name
+        {
+            // Attributes
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            titre: {
+                type: DataTypes.STRING,
+            },
+            description: {
+                type: DataTypes.STRING,
+            },
+            validate: {
+                type: DataTypes.STRING,
+            },
+            photo: {
+                type: DataTypes.TEXT('long'),
+            }
+        }, {
+            // Options
+            timestamps: true,
+            underscrored: true,
+            createdAt: "created_at",
+            updatedAt: "updated_at"
         }
-      },
-      {
-        // Options
-        timestamps: true,
-        underscrored: true,
-        createdAt: "created_at",
-        updatedAt: "updated_at"
-      }
     );
-  
+
     return Blog;
-  };
-  
+};
