@@ -128,7 +128,8 @@ exports.updateInfo = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         companyAddress: req.body.companyAddress,
-        companyPhone: req.body.companyPhone
+        companyPhone: req.body.companyPhone,
+        photo: req.body.photo
     }
     User.update(user, { where: { id: idUser } })
         .then(user => {
