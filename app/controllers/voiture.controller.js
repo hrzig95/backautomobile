@@ -290,7 +290,43 @@ exports.getUserCars = (req, res) => {
         });
 };
 
-
+exports.getUserDetailsAndCars = (req, res) => {
+    let arrayVoitures = [];
+    authJwt.getIdByToken(req, res);
+    let idUser = req.userId;
+    Voiture.findAll({
+            where: {
+                userId: idUser
+            },
+            include: [
+                pictureVoiture,
+                securityEquipmentVoiture,
+                insideEquipmentVoiture,
+                outsideEquipmentVoiture
+            ]
+        })
+        .then(async(voitures) => {
+            for (let i = 0; i < voitures.length; i++) {
+                let user = await User.findOne({
+                    where: {
+                        id: voitures[i].dataValues.userId
+                    },
+                    attributes: ['email', 'type', 'username']
+                });
+                voitures[i].dataValues.user = user
+            }
+            let user = await User.findOne({
+                where: {
+                    id: idUser
+                },
+                attributes: { exclude: ['password'] }
+            });
+            res.send({ voitures: voitures, user: user });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+};
 exports.carStatus = (req, res) => {
     let status = req.body.status;
     let idVoiture = req.body.id;

@@ -2,36 +2,40 @@ const { authJwt } = require("../middlewares");
 const controller = require("../controllers/voiture.controller");
 
 module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
+    app.use(function(req, res, next) {
+        res.header(
+            "Access-Control-Allow-Headers",
+            "x-access-token, Origin, Content-Type, Accept"
+        );
+
+        next();
+    });
+
+    app.get("/voiture", controller.allVoiture);
+    app.get("/voiture/:id", controller.getOneVoiture);
+
+
+    app.post(
+        "/voiture", controller.addVoiture
     );
 
-    next();
-  });
+    app.delete(
+        "/voiture/:id", controller.deleteVoiture
+    );
 
-   app.get("/voiture", controller.allVoiture);
-   app.get("/voiture/:id", controller.getOneVoiture);
+    app.post(
+        "/updateVoiture", controller.updateVoiture
+    );
 
+    app.get(
+        "/getUserCars", controller.getUserCars
+    );
 
-  app.post(
-    "/voiture",controller.addVoiture
-  );
+    app.post(
+        "/carStatus", controller.carStatus
+    );
 
-  app.delete(
-    "/voiture/:id",controller.deleteVoiture
-  );
-
-  app.post(
-    "/updateVoiture",controller.updateVoiture
-  );
-
-  app.get(
-    "/getUserCars",controller.getUserCars
-  );
-
-  app.post(
-    "/carStatus",controller.carStatus
-  );
+    app.get(
+        "/UserDetails/UserCars", controller.getUserDetailsAndCars
+    );
 };
