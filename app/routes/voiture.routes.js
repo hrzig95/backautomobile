@@ -36,6 +36,6 @@ module.exports = function(app) {
     );
 
     app.get(
-        "/UserDetails/UserCars", controller.getUserDetailsAndCars
+        "/vendeurPro/:idUser", controller.getUserDetailsAndCars
     );
 };

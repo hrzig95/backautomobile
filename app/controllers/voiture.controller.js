@@ -292,8 +292,7 @@ exports.getUserCars = (req, res) => {
 
 exports.getUserDetailsAndCars = (req, res) => {
     let arrayVoitures = [];
-    authJwt.getIdByToken(req, res);
-    let idUser = req.userId;
+    let idUser = req.params.idUser;
     Voiture.findAll({
             where: {
                 userId: idUser
