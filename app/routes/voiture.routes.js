@@ -38,4 +38,14 @@ module.exports = function(app) {
     app.get(
         "/vendeurPro/:idUser", controller.getUserDetailsAndCars
     );
+
+    app.get("/allTypeCar", controller.allTypeCar)
+    app.get("/getMarque/:id_car_type", controller.getMarque)
+    app.get("/getModel/:id_car_make", controller.getModel)
+    app.get("/getGeneration/:id_car_model", controller.getGeneration)
+    app.get("/getSerie/:id_car_generation", controller.getSerie)
+    app.get("/getTrim/:id_car_serie", controller.getTrim)
+    app.get("/getEquipement/:id_car_trim", controller.getEquipement)
+    app.get("/getSpecification/:id_car_trim", controller.getSpecification)
+
 };

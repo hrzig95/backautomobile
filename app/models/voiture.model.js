@@ -24,7 +24,8 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             model: {
-                type: DataTypes.STRING,
+                id: DataTypes.STRING,
+                value: DataTypes.STRING,
             },
             type: {
                 type: DataTypes.STRING,
@@ -41,8 +42,9 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             guarantee: {
                 type: DataTypes.STRING,
             },
-            month: {
-                type: DataTypes.STRING,
+            trims: {
+                id: DataTypes.STRING,
+                value: DataTypes.STRING,
             },
             year: {
                 type: DataTypes.INTEGER,
@@ -74,11 +76,13 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             description: {
                 type: DataTypes.STRING,
             },
-            seatingCapacity: {
-                type: DataTypes.STRING,
+            generation: {
+                id: DataTypes.STRING,
+                value: DataTypes.STRING,
             },
-            numberDoors: {
-                type: DataTypes.INTEGER,
+            serie: {
+                id: DataTypes.STRING,
+                value: DataTypes.STRING,
             },
             status: {
                 type: DataTypes.STRING,

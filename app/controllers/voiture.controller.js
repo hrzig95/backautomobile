@@ -2,6 +2,7 @@ const config = require("../config/config");
 const { pictureVoiture, insideEquipmentVoiture, outsideEquipmentVoiture, securityEquipmentVoiture } = require("../models");
 const db = require("../models");
 const { authJwt } = require("../middlewares");
+const { QueryTypes } = require('sequelize');
 
 const Voiture = db.voiture;
 const User = db.user;
@@ -17,12 +18,18 @@ exports.addVoiture = (req, res) => {
         city: req.body.city,
         brand: req.body.brand,
         type: req.body.type,
-        model: req.body.model,
+        model: {
+            id: req.body.model.id,
+            value: req.body.model.value
+        },
         price: req.body.price,
         color: req.body.color,
         carrosserie: req.body.carrosserie,
         guarantee: req.body.guarantee,
-        month: req.body.month,
+        trims: {
+            id: req.body.trims.id,
+            value: req.body.trims.value
+        },
         year: req.body.year,
         category: req.body.category,
         address: req.body.address,
@@ -33,8 +40,14 @@ exports.addVoiture = (req, res) => {
         powerFiscal: req.body.powerFiscal,
         gearbox: req.body.gearbox,
         description: req.body.description,
-        seatingCapacity: req.body.seatingCapacity,
-        numberDoors: req.body.numberDoors,
+        generation: {
+            id: req.body.generation.id,
+            value: req.body.generation.value
+        },
+        serie: {
+            id: req.body.serie.id,
+            value: req.body.serie.value
+        },
         status: 'pending',
         userId: idUser
     }
@@ -108,13 +121,19 @@ exports.updateVoiture = (req, res) => {
         phone: req.body.phone,
         city: req.body.city,
         brand: req.body.brand,
-        model: req.body.model,
+        model: {
+            id: req.body.model.id,
+            value: req.body.model.value
+        },
         type: req.body.type,
         price: req.body.price,
         color: req.body.color,
         carrosserie: req.body.carrosserie,
         guarantee: req.body.guarantee,
-        month: req.body.month,
+        trims: {
+            id: req.body.trims.id,
+            value: req.body.trims.value
+        },
         year: req.body.year,
         category: req.body.category,
         address: req.body.address,
@@ -125,8 +144,14 @@ exports.updateVoiture = (req, res) => {
         powerFiscal: req.body.powerFiscal,
         gearbox: req.body.gearbox,
         description: req.body.description,
-        seatingCapacity: req.body.seatingCapacity,
-        numberDoors: req.body.numberDoors,
+        generation: {
+            id: req.body.generation.id,
+            value: req.body.generation.value
+        },
+        serie: {
+            id: req.body.serie.id,
+            value: req.body.serie.value
+        },
         userId: idUser
     }
     Voiture.update(voiture, { where: { id: idVoiture } })
@@ -337,4 +362,96 @@ exports.carStatus = (req, res) => {
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
+};
+
+exports.allTypeCar = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_type`", { type: QueryTypes.SELECT })
+        .then((car_type) => {
+            res.send({ car_type });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getMarque = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_make` WHERE id_car_type=" + req.params.id_car_type, { type: QueryTypes.SELECT })
+        .then((car_make) => {
+            res.send({ car_make });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getModel = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_model` WHERE id_car_make=" + req.params.id_car_make, { type: QueryTypes.SELECT })
+        .then((car_model) => {
+            res.send({ car_model });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getGeneration = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_generation` WHERE id_car_model=" + req.params.id_car_model, { type: QueryTypes.SELECT })
+        .then((car_generation) => {
+            res.send({ car_generation });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getSerie = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_serie` WHERE id_car_generation=" + req.params.id_car_generation, { type: QueryTypes.SELECT })
+        .then((car_serie) => {
+            res.send({ car_serie });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getTrim = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_trim` WHERE id_car_serie=" + req.params.id_car_serie, { type: QueryTypes.SELECT })
+        .then((car_trim) => {
+            res.send({ car_trim });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getEquipement = (req, res) => {
+    db.sequelize.query("SELECT * FROM `car_equipment` WHERE id_car_trim=" + req.params.id_car_trim, { type: QueryTypes.SELECT })
+        .then((car_equipment) => {
+            res.send({ car_equipment });
+        }).catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getSpecification = async(req, res) => {
+
+    let specifications = [];
+    let car_speification_value = await db.sequelize.query("SELECT * FROM `car_specification_value` WHERE id_car_trim=" + req.params.id_car_trim, { type: QueryTypes.SELECT })
+    for (let i = 0; i < car_speification_value.length; i++) {
+        let car_specification = await db.sequelize.query("SELECT * FROM `car_specification` WHERE id_car_specification=" + car_speification_value[i].id_car_specification, { type: QueryTypes.SELECT })
+        for (let j = 0; j < car_specification.length; j++) {
+            if (car_specification[j].id_car_specification === car_speification_value[i].id_car_specification) {
+                let unit = car_speification_value[i].unit ? " " + car_speification_value[i].unit : "";
+                specification = {
+                    name: car_specification[j].name,
+                    value: car_speification_value[i].value + unit
+                }
+                specifications.push(specification);
+            }
+
+        }
+    }
+    res.send({ specifications });
+
 };
