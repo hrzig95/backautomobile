@@ -13,22 +13,20 @@ exports.addVoiture = (req, res) => {
     let idUser = req.userId;
     let voitureOption = {
         model: {
-            model: {
-                id: req.body.model.id,
-                value: req.body.model.value
-            },
-            trims: {
-                id: req.body.trims.id,
-                value: req.body.trims.value
-            },
-            generation: {
-                id: req.body.generation.id,
-                value: req.body.generation.value
-            },
-            serie: {
-                id: req.body.serie.id,
-                value: req.body.serie.value
-            }
+            id: req.body.model.id,
+            value: req.body.model.value
+        },
+        trims: {
+            id: req.body.trims.id,
+            value: req.body.trims.value
+        },
+        generation: {
+            id: req.body.generation.id,
+            value: req.body.generation.value
+        },
+        serie: {
+            id: req.body.serie.id,
+            value: req.body.serie.value
         }
     }
     let voiture = {
@@ -121,22 +119,20 @@ exports.updateVoiture = (req, res) => {
     securityEquipmentVoiture.destroy({ where: { voitureId: idVoiture } });
     let voitureOption = {
         model: {
-            model: {
-                id: req.body.model.id,
-                value: req.body.model.value
-            },
-            trims: {
-                id: req.body.trims.id,
-                value: req.body.trims.value
-            },
-            generation: {
-                id: req.body.generation.id,
-                value: req.body.generation.value
-            },
-            serie: {
-                id: req.body.serie.id,
-                value: req.body.serie.value
-            }
+            id: req.body.model.id,
+            value: req.body.model.value
+        },
+        trims: {
+            id: req.body.trims.id,
+            value: req.body.trims.value
+        },
+        generation: {
+            id: req.body.generation.id,
+            value: req.body.generation.value
+        },
+        serie: {
+            id: req.body.serie.id,
+            value: req.body.serie.value
         }
     }
     let voiture = {

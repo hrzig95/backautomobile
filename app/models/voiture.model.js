@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             voitureOption: {
-                type: sequelize.JSON,
+                type: DataTypes.JSON,
             },
             type: {
                 type: DataTypes.STRING,
