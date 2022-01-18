@@ -23,9 +23,8 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             brand: {
                 type: DataTypes.STRING,
             },
-            model: {
-                id: DataTypes.STRING,
-                value: DataTypes.STRING,
+            voitureOption: {
+                type: sequelize.JSON,
             },
             type: {
                 type: DataTypes.STRING,
@@ -41,10 +40,6 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             },
             guarantee: {
                 type: DataTypes.STRING,
-            },
-            trims: {
-                id: DataTypes.STRING,
-                value: DataTypes.STRING,
             },
             year: {
                 type: DataTypes.INTEGER,
@@ -75,14 +70,6 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             },
             description: {
                 type: DataTypes.STRING,
-            },
-            generation: {
-                id: DataTypes.STRING,
-                value: DataTypes.STRING,
-            },
-            serie: {
-                id: DataTypes.STRING,
-                value: DataTypes.STRING,
             },
             status: {
                 type: DataTypes.STRING,

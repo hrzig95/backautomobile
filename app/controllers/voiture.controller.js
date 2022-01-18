@@ -11,6 +11,26 @@ exports.addVoiture = (req, res) => {
     // Save user to database
     authJwt.getIdByToken(req, res);
     let idUser = req.userId;
+    let voitureOption = {
+        model: {
+            model: {
+                id: req.body.model.id,
+                value: req.body.model.value
+            },
+            trims: {
+                id: req.body.trims.id,
+                value: req.body.trims.value
+            },
+            generation: {
+                id: req.body.generation.id,
+                value: req.body.generation.value
+            },
+            serie: {
+                id: req.body.serie.id,
+                value: req.body.serie.value
+            }
+        }
+    }
     let voiture = {
         title: req.body.title,
         availablity: req.body.availablity,
@@ -18,18 +38,10 @@ exports.addVoiture = (req, res) => {
         city: req.body.city,
         brand: req.body.brand,
         type: req.body.type,
-        model: {
-            id: req.body.model.id,
-            value: req.body.model.value
-        },
         price: req.body.price,
         color: req.body.color,
         carrosserie: req.body.carrosserie,
         guarantee: req.body.guarantee,
-        trims: {
-            id: req.body.trims.id,
-            value: req.body.trims.value
-        },
         year: req.body.year,
         category: req.body.category,
         address: req.body.address,
@@ -40,14 +52,7 @@ exports.addVoiture = (req, res) => {
         powerFiscal: req.body.powerFiscal,
         gearbox: req.body.gearbox,
         description: req.body.description,
-        generation: {
-            id: req.body.generation.id,
-            value: req.body.generation.value
-        },
-        serie: {
-            id: req.body.serie.id,
-            value: req.body.serie.value
-        },
+        voitureOption: voitureOption,
         status: 'pending',
         userId: idUser
     }
@@ -114,6 +119,26 @@ exports.updateVoiture = (req, res) => {
     outsideEquipmentVoiture.destroy({ where: { voitureId: idVoiture } });
     pictureVoiture.destroy({ where: { voitureId: idVoiture } });
     securityEquipmentVoiture.destroy({ where: { voitureId: idVoiture } });
+    let voitureOption = {
+        model: {
+            model: {
+                id: req.body.model.id,
+                value: req.body.model.value
+            },
+            trims: {
+                id: req.body.trims.id,
+                value: req.body.trims.value
+            },
+            generation: {
+                id: req.body.generation.id,
+                value: req.body.generation.value
+            },
+            serie: {
+                id: req.body.serie.id,
+                value: req.body.serie.value
+            }
+        }
+    }
     let voiture = {
         id: req.body.id,
         title: req.body.title,
@@ -121,19 +146,11 @@ exports.updateVoiture = (req, res) => {
         phone: req.body.phone,
         city: req.body.city,
         brand: req.body.brand,
-        model: {
-            id: req.body.model.id,
-            value: req.body.model.value
-        },
         type: req.body.type,
         price: req.body.price,
         color: req.body.color,
         carrosserie: req.body.carrosserie,
         guarantee: req.body.guarantee,
-        trims: {
-            id: req.body.trims.id,
-            value: req.body.trims.value
-        },
         year: req.body.year,
         category: req.body.category,
         address: req.body.address,
@@ -144,14 +161,7 @@ exports.updateVoiture = (req, res) => {
         powerFiscal: req.body.powerFiscal,
         gearbox: req.body.gearbox,
         description: req.body.description,
-        generation: {
-            id: req.body.generation.id,
-            value: req.body.generation.value
-        },
-        serie: {
-            id: req.body.serie.id,
-            value: req.body.serie.value
-        },
+        voitureOption: voitureOption,
         userId: idUser
     }
     Voiture.update(voiture, { where: { id: idVoiture } })
