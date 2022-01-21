@@ -52,6 +52,12 @@ exports.addVoiture = (req, res) => {
         description: req.body.description,
         voitureOption: voitureOption,
         status: 'pending',
+        numberDoors: req.body.numberDoors,
+        seatingCapacity: req.body.seatingCapacity,
+        puissanceDIN: req.body.puissanceDIN,
+        permis: req.body.permis,
+        carburant: req.body.carburant,
+        miseCirculation: req.body.miseCirculation,
         userId: idUser
     }
     Voiture.create(voiture)
@@ -158,6 +164,12 @@ exports.updateVoiture = (req, res) => {
         gearbox: req.body.gearbox,
         description: req.body.description,
         voitureOption: voitureOption,
+        numberDoors: req.body.numberDoors,
+        seatingCapacity: req.body.seatingCapacity,
+        puissanceDIN: req.body.puissanceDIN,
+        permis: req.body.permis,
+        carburant: req.body.carburant,
+        miseCirculation: req.body.miseCirculation,
         userId: idUser
     }
     Voiture.update(voiture, { where: { id: idVoiture } })

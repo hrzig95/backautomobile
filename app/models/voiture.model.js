@@ -73,7 +73,26 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
             },
             status: {
                 type: DataTypes.STRING,
+            },
+            numberDoors: {
+                type: DataTypes.INTEGER,
+            },
+            seatingCapacity: {
+                type: DataTypes.INTEGER,
+            },
+            puissanceDIN: {
+                type: DataTypes.INTEGER,
+            },
+            permis: {
+                type: DataTypes.STRING,
+            },
+            carburant: {
+                type: DataTypes.STRING,
+            },
+            miseCirculation: {
+                type: DataTypes.DATE,
             }
+
         }, {
             // Options
             timestamps: true,
