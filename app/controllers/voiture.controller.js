@@ -57,6 +57,7 @@ exports.addVoiture = (req, res) => {
         puissanceDIN: req.body.puissanceDIN,
         permis: req.body.permis,
         carburant: req.body.carburant,
+        concessionnaire: req.body.concessionnaire,
         miseCirculation: req.body.miseCirculation,
         userId: idUser
     }
@@ -163,6 +164,7 @@ exports.updateVoiture = (req, res) => {
         powerFiscal: req.body.powerFiscal,
         gearbox: req.body.gearbox,
         description: req.body.description,
+        concessionnaire: req.body.concessionnaire,
         voitureOption: voitureOption,
         numberDoors: req.body.numberDoors,
         seatingCapacity: req.body.seatingCapacity,
