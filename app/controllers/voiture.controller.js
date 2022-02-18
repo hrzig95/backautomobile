@@ -51,7 +51,7 @@ exports.addVoiture = (req, res) => {
         gearbox: req.body.gearbox,
         description: req.body.description,
         voitureOption: voitureOption,
-        status: 'pending',
+        status: req.body.status,
         numberDoors: req.body.numberDoors,
         seatingCapacity: req.body.seatingCapacity,
         puissanceDIN: req.body.puissanceDIN,
@@ -423,12 +423,22 @@ exports.getGeneration = (req, res) => {
 };
 
 exports.getSerie = (req, res) => {
-    db.sequelize.query("SELECT * FROM `car_serie` WHERE id_car_generation=" + req.params.id_car_generation, { type: QueryTypes.SELECT })
-        .then((car_serie) => {
-            res.send({ car_serie });
-        }).catch(err => {
-            res.status(500).send({ message: err.message });
-        });
+    if (req.query.type == "moto") {
+        db.sequelize.query("SELECT * FROM `car_serie` WHERE id_car_model=" + req.params.id_car_generation, { type: QueryTypes.SELECT })
+            .then((car_serie) => {
+                res.send({ car_serie });
+            }).catch(err => {
+                res.status(500).send({ message: err.message });
+            });
+    } else {
+        db.sequelize.query("SELECT * FROM `car_serie` WHERE id_car_generation=" + req.params.id_car_generation, { type: QueryTypes.SELECT })
+            .then((car_serie) => {
+                res.send({ car_serie });
+            }).catch(err => {
+                res.status(500).send({ message: err.message });
+            });
+    }
+
 
 };
 
@@ -471,5 +481,17 @@ exports.getSpecification = async(req, res) => {
         }
     }
     res.send({ specifications });
+
+};
+
+exports.getCarByMarque = async(req, res) => {
+    Voiture.findAll()
+        .then(async(voitures) => {
+            let cars = JSON.stringify(voitures)
+            res.send({ voitures: cars });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
 
 };

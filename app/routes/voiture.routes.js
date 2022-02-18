@@ -47,5 +47,6 @@ module.exports = function(app) {
     app.get("/getTrim/:id_car_serie", controller.getTrim)
     app.get("/getEquipement/:id_car_trim", controller.getEquipement)
     app.get("/getSpecification/:id_car_trim", controller.getSpecification)
+    app.get("/carByMarque/:marque", controller.getCarByMarque)
 
 };
