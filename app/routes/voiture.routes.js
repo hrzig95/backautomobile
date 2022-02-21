@@ -19,6 +19,14 @@ module.exports = function(app) {
         "/voiture", controller.addVoiture
     );
 
+    app.post(
+        "/concessionnaire", controller.addConcessionnaire
+    );
+
+    app.get(
+        "/concessionnaire", controller.getConcessionnaire
+    );
+
     app.delete(
         "/voiture/:id", controller.deleteVoiture
     );

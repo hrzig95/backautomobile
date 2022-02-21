@@ -1,11 +1,12 @@
 const config = require("../config/config");
-const { pictureVoiture, insideEquipmentVoiture, outsideEquipmentVoiture, securityEquipmentVoiture } = require("../models");
+const { pictureConcessionnaire, pictureVoiture, insideEquipmentVoiture, outsideEquipmentVoiture, securityEquipmentVoiture } = require("../models");
 const db = require("../models");
 const { authJwt } = require("../middlewares");
 const { QueryTypes } = require('sequelize');
 
 const Voiture = db.voiture;
 const User = db.user;
+const Concessionnaire = db.concessionnaire;
 
 exports.addVoiture = (req, res) => {
     // Save user to database
@@ -491,6 +492,53 @@ exports.getCarByMarque = async(req, res) => {
         .then(async(voitures) => {
             let cars = JSON.stringify(voitures)
             res.send({ voitures: cars });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.getConcessionnaire = async(req, res) => {
+    Concessionnaire.findAll({
+            include: [
+                pictureConcessionnaire
+            ]
+        })
+        .then(async(concessionnaire) => {
+            res.send({ concessionnaire });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+
+};
+
+exports.addConcessionnaire = async(req, res) => {
+    let concessionnaire = {
+        nom: req.body.nom,
+        tel: req.body.tel,
+        fax: req.body.fax,
+        type: req.body.type,
+        address: req.body.address
+    }
+    Concessionnaire.create(concessionnaire)
+        .then(concessionnaire => {
+            let idConcessionnaire = concessionnaire.id;
+            let concessionnairePicture = [];
+            let pictures = typeof req.body.pictures === "string" ? Array(req.body.pictures) : req.body.pictures;
+
+            for (let i = 0; i < pictures.length; i++) {
+                picture = {
+                    concessionnaireId: idConcessionnaire,
+                    picture: pictures[i]
+                }
+                concessionnairePicture.push(picture)
+            }
+
+            pictureConcessionnaire.bulkCreate(concessionnairePicture);
+
+            res.send({ message: "concessionnaire was registered successfully!" });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });

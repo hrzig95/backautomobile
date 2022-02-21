@@ -2,21 +2,20 @@ const config = require("../config/config.js");
 const { Sequelize, DataTypes, Op } = require("sequelize");
 
 const sequelize = new Sequelize(
-  config.DB,
-  config.USER,
-  config.PASSWORD,
-  {
-    host: config.HOST,
-    dialect: config.dialect,
-    operatorsAliases: false,
+    config.DB,
+    config.USER,
+    config.PASSWORD, {
+        host: config.HOST,
+        dialect: config.dialect,
+        operatorsAliases: false,
 
-    pool: {
-      max: config.pool.max,
-      min: config.pool.min,
-      acquire: config.pool.acquire,
-      idle: config.pool.idle
+        pool: {
+            max: config.pool.max,
+            min: config.pool.min,
+            acquire: config.pool.acquire,
+            idle: config.pool.idle
+        }
     }
-  }
 );
 
 const db = {};
@@ -33,7 +32,9 @@ db.pictureVoiture = require("./pictureVoiture.model.js")(sequelize, Sequelize, D
 db.insideEquipmentVoiture = require("./insideEquipmentVoiture.model.js")(sequelize, Sequelize, DataTypes);
 db.outsideEquipmentVoiture = require("./outsideEquipmentVoiture.model.js")(sequelize, Sequelize, DataTypes);
 db.securityEquipmentVoiture = require("./securityEquipmentVoiture.model.js")(sequelize, Sequelize, DataTypes);
+db.concessionnaire = require("./concessionnaire.model.js")(sequelize, Sequelize, DataTypes);
 
+db.pictureConcessionnaire.belongsTo(db.concessionnaire);
 db.pictureVoiture.belongsTo(db.voiture);
 db.insideEquipmentVoiture.belongsTo(db.voiture);
 db.outsideEquipmentVoiture.belongsTo(db.voiture);
@@ -41,29 +42,32 @@ db.securityEquipmentVoiture.belongsTo(db.voiture);
 db.voiture.belongsTo(db.user);
 
 
-db.user.hasMany(db.voiture,{
-  onDelete:"cascade",
-  allowNull: false,
+db.user.hasMany(db.voiture, {
+    onDelete: "cascade",
+    allowNull: false,
 });
 
-db.voiture.hasMany(db.pictureVoiture,{
-  onDelete:"cascade",
-  allowNull: false,
+db.voiture.hasMany(db.pictureVoiture, {
+    onDelete: "cascade",
+    allowNull: false,
+});
+db.concessionnaire.hasMany(db.pictureConcessionnaire, {
+    onDelete: "cascade",
+    allowNull: false,
+});
+db.voiture.hasMany(db.insideEquipmentVoiture, {
+    onDelete: "cascade",
+    allowNull: false,
 });
 
-db.voiture.hasMany(db.insideEquipmentVoiture,{
-  onDelete:"cascade",
-  allowNull: false,
+db.voiture.hasMany(db.outsideEquipmentVoiture, {
+    onDelete: "cascade",
+    allowNull: false,
 });
 
-db.voiture.hasMany(db.outsideEquipmentVoiture,{
-  onDelete:"cascade",
-  allowNull: false,
-});
-
-db.voiture.hasMany(db.securityEquipmentVoiture,{
-  onDelete:"cascade",
-  allowNull: false,
+db.voiture.hasMany(db.securityEquipmentVoiture, {
+    onDelete: "cascade",
+    allowNull: false,
 });
 
 module.exports = db;
