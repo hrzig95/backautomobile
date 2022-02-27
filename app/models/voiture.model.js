@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             concessionnaire: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
             },
             price: {
                 type: DataTypes.DOUBLE,
